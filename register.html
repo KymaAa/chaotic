@@ -1,0 +1,491 @@
+
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Royal Poker</title>
+
+    <style>
+        :root {
+            --bg: #0b0e0d;
+            --surface: #151a17;
+            --surface-light: #202722;
+            --green: #19c879;
+            --green-dark: #087c4a;
+            --gold: #f4c76a;
+            --text: #f5f7f5;
+            --muted: #929b94;
+            --border: #29332c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    ellipse at top,
+                    #123323 0%,
+                    var(--bg) 55%
+                );
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            padding: 20px 16px 35px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            margin: 0 auto;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+        }
+
+        .back-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logo {
+            color: var(--gold);
+            font-size: 21px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--green);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: clamp(27px, 7vw, 34px);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 23px 18px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .optional {
+            color: var(--muted);
+            font-weight: normal;
+        }
+
+        input {
+            width: 100%;
+            min-height: 49px;
+            padding: 0 14px;
+            background: var(--surface-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 2px #19c87920;
+        }
+
+        input::placeholder {
+            color: #69736b;
+        }
+
+        .password-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            padding-right: 12px;
+        }
+
+        .password-wrap:focus-within {
+            border-color: var(--green);
+        }
+
+        .password-wrap input {
+            border: none;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .show-password {
+            background: none;
+            border: none;
+            color: var(--green);
+            font-size: 12px;
+            cursor: pointer;
+            padding: 8px 0 8px 8px;
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+            margin-top: 7px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 21px 0;
+        }
+
+        .terms input {
+            width: 17px;
+            min-height: 17px;
+            height: 17px;
+            margin-top: 2px;
+            accent-color: var(--green);
+            flex-shrink: 0;
+        }
+
+        .terms label {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.6;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .terms a,
+        .login-link a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            min-height: 51px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                var(--green),
+                var(--green-dark)
+            );
+            color: #07130c;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .login-link {
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+            margin-top: 24px;
+        }
+
+        .security-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 22px;
+        }
+
+        .security-note span {
+            color: var(--gold);
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 16px 12px 25px;
+            }
+
+            .form-card {
+                padding: 20px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <header class="top-bar">
+            <a href="profile.html" class="back-link">
+                ← Back
+            </a>
+
+            <a href="index.html" class="logo">
+                ♠ ROYAL POKER
+            </a>
+        </header>
+
+        <section class="heading">
+            <p class="eyebrow">JOIN THE TABLE</p>
+
+            <h1>Create account</h1>
+
+            <p class="subtitle">
+                Create your account and get ready to play.
+            </p>
+        </section>
+
+        <form class="form-card" id="registerForm">
+
+            <div class="form-group">
+                <label for="username">Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Choose a username"
+                    minlength="3"
+                    maxlength="20"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Gmail address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@gmail.com"
+                    autocomplete="email"
+                    required
+                >
+
+                <p class="hint">
+                    Use an email you control. Email verification
+                    can be added when the backend is ready.
+                </p>
+            </div>
+           
+            <!-- Bank Name -->
+<div class="form-group">
+    <label for="bankName">Bank Name</label>
+
+    <select
+        id="bankName"
+        name="bankName"
+        required
+        style="
+            width: 100%;
+            min-height: 49px;
+            padding: 0 14px;
+            background: var(--surface-light);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            font-size: 14px;
+        "
+    >
+        <option value="" disabled selected>
+            Select your bank
+        </option>
+        <option value="khan">Khan Bank</option>
+        <option value="golomt">Golomt Bank</option>
+        <option value="tdb">Trade and Development Bank</option>
+        <option value="state">State Bank</option>
+        <option value="xac">XacBank</option>
+        <option value="other">Other</option>
+    </select>
+</div>
+
+<!-- Bank Account Number -->
+<div class="form-group">
+    <label for="bankAccount">Bank Account Number</label>
+
+    <input
+        type="text"
+        id="bankAccount"
+        name="bankAccount"
+        placeholder="Enter your account number"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="30"
+        required
+    >
+
+    <p class="hint">
+        Enter your bank account number only.
+        Never enter your bank password, PIN, or OTP.
+    </p>
+</div>
+
+            
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+976  XXXX XXXX"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <div class="password-wrap">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a strong password"
+                        minlength="8"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="togglePassword"
+                    >
+                        Show
+                    </button>
+                </div>
+
+                <p class="hint">
+                    Use at least 8 characters. Avoid reusing
+                    passwords from other accounts.
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">
+                    Confirm password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Enter your password again"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <div class="terms">
+                <input
+                    type="checkbox"
+                    id="agree"
+                    name="agree"
+                    required
+                >
+
+                <label for="agree">
+                    I agree to the
+                    <a href="#">Terms of Service</a>
+                    and
+                    <a href="#">Privacy Policy</a>.
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                CREATE ACCOUNT →
+            </button>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="login.html">Log in</a>
+            </p>
+
+        </form>
+
+        <p class="security-note">
+            <span>♢ Privacy first</span><br>
+            Demo only — this page does not create or save
+            an actual account.
+        </p>
+
+    </main>
+
+    <script>
+        const password = document.getElementById("password");
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const form = document.getElementById("registerForm");
+
+        togglePassword.addEventListener("click", () => {
+            const isHidden = password.type === "password";
+
+            password.type = isHidden ? "text" : "password";
+            togglePassword.textContent = isHidden ? "Hide" : "Show";
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (password.value !== confirmPassword.value) {
+                alert("Passwords do not match!");
+                confirmPassword.focus();
+                return;
+            }
+
+            alert(
+                "Demo only! Account registration will work " +
+                "after the backend is connected."
+            );
+        });
+    </script>
+</body>
+</html>

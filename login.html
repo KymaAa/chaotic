@@ -1,0 +1,496 @@
+```html
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Royal Poker | Login</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0b0e0d;
+            --surface: #151a17;
+            --surface-light: #202722;
+            --green: #19c879;
+            --green-dark: #087c4a;
+            --gold: #f4c76a;
+            --text: #f5f7f5;
+            --muted: #929b94;
+            --border: #29332c;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a, button, input {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ===== MAIN APP ===== */
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 0 16px 35px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #22db89, #087c4a);
+            color: #07160e;
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .logo-name {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo-name span {
+            color: var(--green);
+        }
+
+        /* ===== WELCOME ===== */
+        .welcome {
+            margin-top: 35px;
+            margin-bottom: 25px;
+        }
+
+        .welcome-tag {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 13px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(28px, 7vw, 35px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .welcome h1 span {
+            color: var(--green);
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ===== LOGIN CARD ===== */
+        .login-card {
+            padding: 22px 18px;
+            border: 1px solid #28513b;
+            border-radius: 20px;
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    #17663f 0%,
+                    transparent 52%
+                ),
+                linear-gradient(135deg, #172b20, #101612);
+        }
+
+        .login-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: #20382a;
+            border: 1px solid #315a40;
+            font-size: 27px;
+            margin-bottom: 19px;
+        }
+
+        .login-card h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #a5b8aa;
+            font-size: 12px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        /* ===== INPUTS ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 47px;
+            padding: 0 13px;
+            color: var(--text);
+            background: #0d120f;
+            border: 1px solid #344138;
+            border-radius: 10px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .form-group input::placeholder {
+            color: #68736b;
+        }
+
+        .form-group input:focus {
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px #19c87918;
+        }
+
+        .password-wrap {
+            display: flex;
+            gap: 8px;
+        }
+
+        .password-wrap input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .show-password {
+            padding: 0 12px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* ===== FORM OPTIONS ===== */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0 22px;
+            font-size: 11px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+        }
+
+        .remember input {
+            accent-color: var(--green);
+        }
+
+        .forgot-link {
+            color: var(--gold);
+        }
+
+        /* ===== LOGIN BUTTON ===== */
+        .login-submit {
+            width: 100%;
+            min-height: 49px;
+            border: none;
+            border-radius: 11px;
+            background: var(--green);
+            color: #06180e;
+            font-size: 13px;
+            font-weight: 900;
+            transition: 0.2s;
+        }
+
+        .login-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== REGISTER LINK ===== */
+        .register-prompt {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 22px;
+            line-height: 1.7;
+        }
+
+        .register-prompt a {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        /* ===== SECURITY NOTE ===== */
+        .security-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 17px;
+            padding: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .security-icon {
+            font-size: 19px;
+        }
+
+        .security-note p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* ===== SMALL PHONES ===== */
+        @media (max-width: 350px) {
+            .app {
+                padding-left: 11px;
+                padding-right: 11px;
+            }
+
+            .login-card {
+                padding: 18px 13px;
+            }
+
+            .welcome {
+                margin-top: 27px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <a href="profile.html" class="back-btn"
+           aria-label="Буцах">‹</a>
+
+        <a href="index.html" class="logo">
+            <div class="logo-icon">♠</div>
+
+            <div class="logo-name">
+                ROYAL<span>POKER</span>
+            </div>
+        </a>
+
+    </header>
+
+    <main>
+
+        <!-- WELCOME -->
+        <section class="welcome">
+
+            <p class="welcome-tag">♠ PLAYER ACCOUNT</p>
+
+            <h1>
+                Welcome<br>
+                <span>back, Player.</span>
+            </h1>
+
+            <p>
+                Аккаунтаараа нэвтэрч, тоглоомын
+                аяллаа үргэлжлүүлээрэй.
+            </p>
+
+        </section>
+
+        <!-- LOGIN FORM -->
+        <section class="login-card">
+
+            <div class="login-icon">♙</div>
+
+            <h2>Log in</h2>
+
+            <p class="card-description">
+                Бүртгэлтэй аккаунтынхаа мэдээллийг оруулна уу.
+            </p>
+
+            <form action="#" method="post">
+
+                <!-- USERNAME / EMAIL -->
+                <div class="form-group">
+
+                    <label for="username">
+                        Email эсвэл username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="name@example.com"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrap">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Нууц үгээ оруулна уу"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            class="show-password"
+                            type="button"
+                            onclick="togglePassword()"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- OPTIONS -->
+                <div class="form-options">
+
+                    <label class="remember">
+                        <input type="checkbox" name="remember">
+                        Намайг санах
+                    </label>
+
+                    <a href="#" class="forgot-link"
+                       onclick="return false;">
+                        Нууц үг мартсан уу?
+                    </a>
+
+                </div>
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+                    LOG IN &nbsp; →
+                </button>
+
+            </form>
+
+            <p class="register-prompt">
+                Аккаунт байхгүй юу?<br>
+                <a href="register.html">
+                    Create account →
+                </a>
+            </p>
+
+        </section>
+
+        <!-- SECURITY -->
+        <div class="security-note">
+
+            <div class="security-icon">🛡️</div>
+
+            <p>
+                Аккаунтын нууц үгээ бусадтай хуваалцахгүй
+                байгаарай. Энэ хувилбар нь зөвхөн дизайны demo
+                бөгөөд серверт холбогдоогүй.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+    function togglePassword() {
+        const password = document.getElementById("password");
+        const button = document.querySelector(".show-password");
+
+        if (password.type === "password") {
+            password.type = "text";
+            button.textContent = "Hide";
+        } else {
+            password.type = "password";
+            button.textContent = "Show";
+        }
+    }
+</script>
+
+</body>
+</html>
+```

@@ -1,0 +1,436 @@
+```html
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Royal Poker | Profile</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0b0e0d;
+            --surface: #151a17;
+            --surface-light: #202722;
+            --green: #19c879;
+            --green-dark: #087c4a;
+            --gold: #f4c76a;
+            --text: #f5f7f5;
+            --muted: #929b94;
+            --border: #29332c;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a, button {
+            font: inherit;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ===== MAIN APP ===== */
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 0 16px 110px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            font-size: 22px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .logo-icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #22db89, #087c4a);
+            color: #07160e;
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .logo-name {
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 0.7px;
+        }
+
+        .logo-name span {
+            color: var(--green);
+        }
+
+        /* ===== WELCOME ===== */
+        .welcome {
+            margin-top: 36px;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(27px, 7vw, 34px);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .welcome h1 span {
+            color: var(--green);
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ===== AUTH CARD ===== */
+        .auth-card {
+            position: relative;
+            overflow: hidden;
+            padding: 22px 18px;
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    #174c30 0%,
+                    transparent 48%
+                ),
+                linear-gradient(145deg, #17231b, #121613);
+            border: 1px solid #28513b;
+            border-radius: 20px;
+        }
+
+        .card-symbol {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            background: #203d2b;
+            border: 1px solid #315a40;
+            border-radius: 17px;
+            color: var(--green);
+            font-size: 31px;
+            margin-bottom: 19px;
+        }
+
+        .auth-card h2 {
+            font-size: 21px;
+            margin-bottom: 9px;
+        }
+
+        .auth-card > p {
+            color: #a5b8aa;
+            font-size: 12px;
+            line-height: 1.7;
+            margin-bottom: 23px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 48px;
+            padding: 13px;
+            border-radius: 11px;
+            font-size: 13px;
+            font-weight: 800;
+            transition: 0.2s;
+        }
+
+        .login-btn {
+            background: var(--green);
+            color: #06180e;
+            border: 1px solid var(--green);
+            margin-bottom: 11px;
+        }
+
+        .register-btn {
+            background: rgba(15, 23, 18, 0.7);
+            color: var(--gold);
+            border: 1px solid #65532e;
+        }
+
+        .auth-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ===== BENEFITS ===== */
+        .benefits {
+            display: grid;
+            gap: 13px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .benefit-icon {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            background: #20382a;
+            border-radius: 12px;
+            font-size: 21px;
+        }
+
+        .benefit h3 {
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .benefit p {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            z-index: 10;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 11px 8px calc(11px + env(safe-area-inset-bottom));
+            background: rgba(17, 21, 18, 0.96);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(15px);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--muted);
+            font-size: 10px;
+            padding: 4px;
+        }
+
+        .nav-item span {
+            font-size: 21px;
+        }
+
+        .nav-item.active {
+            color: var(--green);
+        }
+
+        /* ===== SMALL PHONES ===== */
+        @media (max-width: 350px) {
+            .app {
+                padding-left: 11px;
+                padding-right: 11px;
+            }
+
+            .auth-card {
+                padding: 18px 14px;
+            }
+
+            .welcome {
+                margin-top: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="index.html" class="back-btn" aria-label="Буцах">
+            ‹
+        </a>
+
+        <a href="index.html" class="logo">
+            <div class="logo-icon">♠</div>
+            <div class="logo-name">ROYAL<span>POKER</span></div>
+        </a>
+    </header>
+
+    <main>
+
+        <!-- WELCOME -->
+        <section class="welcome">
+            <p class="eyebrow">♠ PLAYER ACCOUNT</p>
+
+            <h1>Welcome to<br>
+                <span>Royal Poker.</span>
+            </h1>
+
+            <p>
+                Аккаунтаараа нэвтэрч, тоглоомын
+                аяллаа үргэлжлүүлээрэй.
+            </p>
+        </section>
+
+        <!-- LOGIN / REGISTER -->
+        <section class="auth-card">
+
+            <div class="card-symbol">♙</div>
+
+            <h2>Тоглоход бэлэн үү?</h2>
+
+            <p>
+                Өөрийн аккаунтад нэвтрэх эсвэл шинэ
+                тоглогчийн бүртгэл үүсгээрэй.
+            </p>
+
+            <a href="login.html" class="auth-btn login-btn">
+                LOG IN &nbsp; →
+            </a>
+
+            <a href="register.html" class="auth-btn register-btn">
+                CREATE ACCOUNT &nbsp; +
+            </a>
+
+        </section>
+
+        <div class="divider">MEMBER BENEFITS</div>
+
+        <!-- BENEFITS -->
+        <section class="benefits">
+
+            <article class="benefit">
+                <div class="benefit-icon">♛</div>
+
+                <div>
+                    <h3>Өөрийн профайл</h3>
+                    <p>Username болон тоглогчийн мэдээллээ удирдана.</p>
+                </div>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon">🃏</div>
+
+                <div>
+                    <h3>Тоглоомын түүх</h3>
+                    <p>Тоглосон тоглоом болон амжилтаа харах боломжтой.</p>
+                </div>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon">🛡️</div>
+
+                <div>
+                    <h3>Аккаунтын хамгаалалт</h3>
+                    <p>Өөрийн аккаунтын мэдээллээ хамгаалаарай.</p>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+    <a href="index.html" class="nav-item">
+        <span>⌂</span>
+        Home
+    </a>
+
+    <a href="index.html#tables" class="nav-item">
+        <span>♠</span>
+        Play
+    </a>
+
+    <a href="index.html#balance" class="nav-item">
+        <span>◈</span>
+        Wallet
+    </a>
+
+    <a href="profile.html" class="nav-item active">
+        <span>♙</span>
+        Profile
+    </a>
+
+</nav>
+
+</body>
+</html>
+```

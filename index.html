@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Royal Poker</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0b0e0d;
+            --surface: #151a17;
+            --surface-light: #202722;
+            --green: #19c879;
+            --green-dark: #087c4a;
+            --gold: #f4c76a;
+            --text: #f5f7f5;
+            --muted: #929b94;
+            --border: #29332c;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button, a {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* ===== MAIN APP ===== */
+        .app {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 0 16px 100px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: linear-gradient(
+                145deg, #22db89, #087c4a
+            );
+            color: #07160e;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .logo-name {
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo-name span {
+            color: var(--green);
+        }
+
+        .login-btn {
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+        }
+
+        /* ===== WELCOME ===== */
+        .welcome {
+            margin-top: 12px;
+            margin-bottom: 22px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(25px, 7vw, 32px);
+            line-height: 1.2;
+        }
+
+        .welcome h1 span {
+            color: var(--green);
+        }
+
+        /* ===== BALANCE CARD ===== */
+        .balance-card {
+            position: relative;
+            overflow: hidden;
+            padding: 21px;
+            border: 1px solid #28513b;
+            border-radius: 20px;
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    #17663f 0%,
+                    transparent 52%
+                ),
+                linear-gradient(135deg, #172b20, #101612);
+        }
+
+        .balance-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .balance-label {
+            color: #b8c8bd;
+            font-size: 13px;
+        }
+
+        .demo-badge {
+            color: var(--gold);
+            background: #44391e;
+            border-radius: 20px;
+            padding: 5px 9px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .balance-amount {
+            margin-top: 13px;
+            font-size: clamp(28px, 8vw, 36px);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .balance-amount small {
+            color: var(--gold);
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .balance-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .balance-note {
+            color: #a5b8aa;
+            font-size: 11px;
+        }
+
+        .deposit-btn {
+            border: none;
+            background: var(--green);
+            color: #06180e;
+            font-weight: 800;
+            padding: 11px 15px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section {
+            margin-top: 30px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-size: 18px;
+        }
+
+        .section-heading a {
+            color: var(--green);
+            font-size: 12px;
+        }
+
+        /* ===== HERO / PLAY NOW ===== */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 22px 19px;
+            min-height: 178px;
+            border-radius: 19px;
+            border: 1px solid #24583d;
+            background:
+                radial-gradient(
+                    ellipse at 95% 50%,
+                    #167343 0%,
+                    transparent 48%
+                ),
+                linear-gradient(120deg, #183c28, #102117);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 75%;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #24583d;
+            color: #9ef4c4;
+            font-size: 10px;
+            padding: 6px 9px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: #c0d4c6;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .play-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 17px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            background: var(--green);
+            color: #06180e;
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .hero-symbol {
+            position: absolute;
+            right: 13px;
+            top: 28px;
+            font-size: clamp(60px, 18vw, 90px);
+            transform: rotate(12deg);
+            opacity: 0.9;
+        }
+
+        /* ===== GAME MODES ===== */
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .mode-card {
+            min-width: 0;
+            padding: 15px 7px;
+            text-align: center;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+        }
+
+        .mode-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 11px;
+            border-radius: 13px;
+            background: #20382a;
+            font-size: 23px;
+        }
+
+        .mode-card h3 {
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .mode-card p {
+            font-size: 10px;
+            line-height: 1.4;
+            color: var(--muted);
+        }
+
+        /* ===== TABLE LIST ===== */
+        .table-list {
+            display: grid;
+            gap: 11px;
+        }
+
+        .table-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 15px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .table-art {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: linear-gradient(
+                145deg, #1c7045, #103b27
+            );
+            font-size: 25px;
+        }
+
+        .table-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .table-info h3 {
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .table-info p {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .table-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .table-players {
+            color: var(--green);
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .join-btn {
+            border: 1px solid #286b47;
+            color: #8af0b5;
+            background: #173325;
+            border-radius: 8px;
+            padding: 8px 11px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* ===== DAILY BONUS ===== */
+        .bonus-card {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 17px;
+            border-radius: 16px;
+            border: 1px solid #51452a;
+            background: linear-gradient(
+                120deg, #2b2618, #191812
+            );
+        }
+
+        .bonus-icon {
+            font-size: 35px;
+        }
+
+        .bonus-info {
+            flex: 1;
+        }
+
+        .bonus-info h3 {
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .bonus-info p {
+            color: #b9b09a;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .bonus-btn {
+            background: #e9bb5c;
+            color: #251b08;
+            border: none;
+            padding: 10px;
+            border-radius: 9px;
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+        /* ===== BOTTOM NAVIGATION ===== */
+        .bottom-nav {
+            position: fixed;
+            z-index: 10;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 11px 8px calc(11px + env(safe-area-inset-bottom));
+            background: rgba(17, 21, 18, 0.96);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(15px);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--muted);
+            font-size: 10px;
+            padding: 4px;
+        }
+
+        .nav-item span {
+            font-size: 21px;
+        }
+
+        .nav-item.active {
+            color: var(--green);
+        }
+        
+
+        /* ===== SMALL PHONE ===== */
+        @media (max-width: 350px) {
+            .app {
+                padding-left: 11px;
+                padding-right: 11px;
+            }
+
+            .mode-grid {
+                gap: 6px;
+            }
+
+            .mode-card {
+                padding: 12px 4px;
+            }
+
+            .table-card {
+                gap: 8px;
+                padding: 10px;
+            }
+
+            .table-art {
+                width: 43px;
+                height: 43px;
+            }
+
+            .hero-content {
+                max-width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <script>
+
+    </script>
+
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+        <a href="#home" class="logo">
+            <div class="logo-icon">♠</div>
+            <div class="logo-name">ROYAL<span>POKER</span></div>
+        </a>
+
+        <button class="login-btn" type="button">
+            Log in
+        </button>
+    </header>
+
+    <main id="home">
+
+        <!-- WELCOME -->--------------------------------------------------------------------------
+        <section class="welcome">
+            <p>Сайн уу, тоглогч 👋</p>
+            <h1>Ready to <span>play?</span></h1>
+        </section>
+
+        <!-- BALANCE -->----------------------------------------------------------------------
+        <section class="balance-card">
+            <div class="balance-top">
+                <p class="balance-label">Таны chip үлдэгдэл</p>
+                <span class="demo-badge"></span>
+            </div>
+
+            <div class="balance-amount">
+                25,000 <small>ТӨГРӨГ</small>
+            </div>
+
+            <div class="balance-bottom">
+                <p class="balance-note">
+                
+                </p>
+
+                <button class="deposit-btn" type="button">
+                    + ДАНС ЦЭНЭГЛЭХ
+                </button>
+            </div>
+        </section>
+
+        <!-- PLAY NOW -->
+        <section class="section">
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="hero-tag">♠ YOUR NEXT GAME</span>
+
+                    <h2><br>ТОГЛОЖ ЭХЛЭХҮҮ?</h2>
+
+                    <p>
+                        Ширээгээ сонгоод тоглоомоо эхлүүл.
+                    </p>
+
+                    <a href="#tables" class="play-btn">
+                        ▶ТОГЛЪЁ
+                    </a>
+                </div>
+
+                <div class="hero-symbol">🂡</div>
+            </div>
+        </section>
+
+        <!-- GAME MODES -->
+        <section class="section">
+            <div class="section-heading">
+                <h2>Game modes</h2>
+                <a href="#tables">See all →</a>
+            </div>
+
+            <div class="mode-grid">
+
+                <a href="#tables" class="mode-card">
+                    <div class="mode-icon">💰</div>
+                    <h3>Cash Game</h3>
+                    <p>Шууд тогло</p>
+                </a>
+
+                <a href="#tables" class="mode-card">
+                    <div class="mode-icon">⚡</div>
+                    <h3>Sit & Go</h3>
+                    <p>Хурдан өрсөлдөөн</p>
+                </a>
+
+                <a href="#tables" class="mode-card">
+                    <div class="mode-icon">🏆</div>
+                    <h3>Tournament</h3>
+                    <p>Аваргын төлөө</p>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- TABLES -->------------------------------------------------------------------------------------------------------------------------------------------------
+        <section class="section" id="tables">
+            <div class="section-heading">
+                <h2>Popular tables</h2>
+                <a href="#tables">View all →</a>
+            </div>
+
+            <div class="table-list">
+
+                <article class="table-card">
+                    <div class="table-art">🃏</div>
+
+                    <div class="table-info">
+                        <h3>Beginner Table</h3>
+                        <p>Blinds: 10 / 20</p>
+                    </div>
+
+                    <div class="table-right">
+                        <p class="table-players">
+                            ● 4 / 6
+                        </p>
+                        <button class="join-btn" type="button">
+                            Join
+                        </button>
+                    </div>
+                </article>
+
+                <article class="table-card">
+                    <div class="table-art">♠</div>
+
+                    <div class="table-info">
+                        <h3>Pro Table</h3>
+                        <p>Blinds: 50 / 100</p>
+                    </div>
+
+                    <div class="table-right">
+                        <p class="table-players">
+                            ● 3 / 6
+                        </p>
+                        <button class="join-btn" type="button">
+                            Join
+                        </button>
+                    </div>
+                </article>
+
+                <article class="table-card">
+                    <div class="table-art">♦</div>
+
+                    <div class="table-info">
+                        <h3>High Stakes</h3>
+                        <p>Blinds: 500 / 1K</p>
+                    </div>
+
+                    <div class="table-right">
+                        <p class="table-players">
+                            ● 5 / 6
+                        </p>
+                        <button class="join-btn" type="button">
+                            Join
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        
+
+    </main>
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+
+    <a href="#home" class="nav-item active">
+        <span>⌂</span>
+        Home
+    </a>
+
+    <a href="#tables" class="nav-item">
+        <span>♠</span>
+        Play
+    </a>
+
+    <a href="#balance" class="nav-item">
+        <span>◈</span>
+        Wallet
+    </a>
+
+    <a href="profile.html" class="nav-item">
+        <span>♙</span>
+        Profile
+    </a>
+
+</nav>
+
+</body>
+</html>
